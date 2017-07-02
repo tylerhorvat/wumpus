@@ -14,13 +14,29 @@ public class Map {
 	}
 	
 	public boolean checkForWumpus() {
-		Point wumpusPoint = wumpus.getWumpusLocation();
+		Point wumpusPoint = Wumpus.getWumpusLocation();
 		Point hunterPoint = player.getPlayerLocation();
 		
-		if(wumpusPoint.getX() == hunterPoint.getX() + 1 ||
-		   wumpusPoint.getX() == hunterPoint.getX() + 2) {
-			
+		if((wumpusPoint.getX() == hunterPoint.getX() + 1  ||
+		    wumpusPoint.getX() == hunterPoint.getX() + 2) &&
+			wumpusPoint.getY() == hunterPoint.getY())  {
+				return true;
 		}
+		if((wumpusPoint.getX() == hunterPoint.getX() - 1  ||
+			wumpusPoint.getX() == hunterPoint.getX() - 2) &&
+			wumpusPoint.getY() == hunterPoint.getY())  {
+				return true;
+		}
+		if((wumpusPoint.getY() == hunterPoint.getY() - 1  ||
+			wumpusPoint.getY() == hunterPoint.getY() - 2) &&
+			wumpusPoint.getX() == hunterPoint.getY())  {
+				return true;
+		}
+		if((wumpusPoint.getY() == hunterPoint.getY() + 1  ||
+			wumpusPoint.getY() == hunterPoint.getY() + 2) &&
+			wumpusPoint.getX() == hunterPoint.getY())  {
+				return true;
+			}
 		return false;
 	}
 

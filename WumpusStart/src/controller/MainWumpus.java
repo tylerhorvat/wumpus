@@ -33,7 +33,6 @@ public class MainWumpus extends Application {
     Scanner scanner = new Scanner(System.in);
     boolean hitWumpus = false;
     int checkNextMove = 0;
-    boolean wumpusNearby = false;
     
     do {
     	
@@ -57,7 +56,7 @@ public class MainWumpus extends Application {
         	player.setPlayerLocation(moveTo);
         }
         
-        if(wumpusNearby) {
+        if(map.checkForWumpus()) {
         	System.out.println();
         	System.out.println("I smell something foul, from 1 or 2 rooms away");
         	System.out.println();	
