@@ -1,4 +1,7 @@
 package controller;
+import java.awt.Point;
+import java.util.Scanner;
+
 /**
  * This is a bare minimum start to the event drive GUI.
  * 
@@ -13,11 +16,41 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.Map;
+import model.Player;
 
 public class MainWumpus extends Application {
 
   public static void main(String[] args) {
-    Application.launch(args);
+    //Application.launch(args);
+    
+    boolean gameOver = false;
+    Player player = new Player();
+    Map map = new Map(player);
+    Scanner scanner = new Scanner(System.in);
+    
+    do {
+    	
+    	System.out.println(map.toString());
+        System.out.println("Move (n, e, s, w, arrow)?");
+        String playerMove = scanner.next();
+        
+        Move move = new Move(playerMove, player.getPlayerLocation());
+        Point moveTo = move.makeMove();
+        if(moveTo == null) {
+        	Scanner arrowScan = new Scanner(System.in);
+			System.out.print("Shoot (n, e, s, w)? ");
+			String arrowDirection = arrowScan.next();
+        }
+        gameOver = move.checkGameOver();
+        
+    } while (!gameOver);
+    
+    System.out.println(map.toString());
+    
+    
+    scanner.close();
+    
   }
 
   private BorderPane window;
