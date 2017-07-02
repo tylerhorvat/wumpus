@@ -12,32 +12,52 @@ public class Player {
 		return playerLocation;
 	}
 
-	public void setPlayerLocation(Point playerLocation) {
+	public void setPlayerLocation(Point point) {
+		Room [][] map = Map.getMap();
 		
-		this.playerLocation = playerLocation;
+		if(this.previousRoomType == RoomType.Hunter)
+			map[this.playerLocation.x][this.playerLocation.y].setRoomType(RoomType.Empty);
+		if(this.previousRoomType != RoomType.Hunter)
+			map[this.playerLocation.x][this.playerLocation.y].setRoomType(this.previousRoomType);
+		
+		this.previousRoomType = map[point.x][point.y].getRoomType();
+		
+		map[point.x][point.y].setIsVisited();
+		
+		this.playerLocation = point;
+		map[point.x][point.y].setRoomType(this.roomType);
 	}
 
-	public Player () {
-		
+	public Player (Point p) {
+		this.previousRoomType = RoomType.Hunter;
+		this.playerLocation = p;
 	}
 	
-	public void makeMove(Point moveTo) {
-		
-		
-		
+	public RoomType getPreviousRoomType() {
+		return previousRoomType;
 	}
-	
-	public void shootArrow (String s) {
-		public boolean hitPlayer = false;
+
+	//true for hit wumpus, false for hit player
+	public boolean shootArrow (String s) {
+		
 		int r, c;
+		Point wumpus = Wumpus.getWumpusLocation();
 		
-		if(s == "n") {
-			while(!hitPlayer) {
-				r = (int) this.getPlayerLocation().getX();
+		
+		if(s.equals("n") || s.equals("s")) {
+				//r = (int) this.getPlayerLocation().getX();
 				c = (int) this.getPlayerLocation().getY();
-			}
+				int w = (int) wumpus.getY();
+				if(c != w)
+					return false;
 		}
+		else if (s.equals("w") || s.equals("e")) {
+			r = (int) this.getPlayerLocation().getX();
+			int w = (int) wumpus.getX();
+			if(r != w)
+				return false;
+		}
+		return true;
 	}
-	
 	
 }

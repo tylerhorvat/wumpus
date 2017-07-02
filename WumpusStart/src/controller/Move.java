@@ -19,25 +19,23 @@ public class Move {
 	public Point makeMove() {
 		int r = 0, c = 0;
 	
-		if(this.move == "arrow") {
+		if(this.move.equals("arrow")) {
 			return null;
-			/*Scanner scanner = new Scanner(System.in);
-			System.out.print("Shoot (n, e, s, w)? ");
-			String arrowDirection = scanner.next();*/
+		
 		}
-		else if(this.move == "n"){
-			r = Map.checkIndex(playerCurrentLocation.x + 1);
+		else if(this.move.equals("n")){
+			r = Map.checkIndex(playerCurrentLocation.x - 1);
 		    c = Map.checkIndex(playerCurrentLocation.y);
 		}
-		else if(this.move == "e") {
+		else if(this.move.equals("e")) {
 			r = Map.checkIndex(playerCurrentLocation.x);
 			c = Map.checkIndex(playerCurrentLocation.y + 1);
 		}
-		else if(this.move == "s") {
-			r = Map.checkIndex(playerCurrentLocation.x - 1);
+		else if(this.move.equals("s")) {
+			r = Map.checkIndex(playerCurrentLocation.x + 1);
 			c = Map.checkIndex(playerCurrentLocation.y);
 		}
-		else if(this.move == "w") {
+		else if(this.move.equals("w")) {
 			r = Map.checkIndex(playerCurrentLocation.x);
 			c = Map.checkIndex(playerCurrentLocation.y - 1);
 		}
@@ -45,9 +43,5 @@ public class Move {
 		return new Point(r, c);
 			
 	}
-	
-	public boolean checkGameOver() {
-		
-		return true;
-	}
+
 }

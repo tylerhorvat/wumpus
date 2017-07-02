@@ -1,20 +1,32 @@
 package model;
 
 import java.awt.Point;
+//import java.awt.Point;
 import java.util.Random;
 
 public class Map {
 
 	final static int MAX_SIZE = 12;
-	Room [][] map;
+	static Room [][] map;
 	Player player;
-	public Room[][] getMap() {
+	public static Room[][] getMap() {
 		return map;
+	}
+	
+	public boolean checkForWumpus() {
+		Point wumpusPoint = wumpus.getWumpusLocation();
+		Point hunterPoint = player.getPlayerLocation();
+		
+		if(wumpusPoint.getX() == hunterPoint.getX() + 1 ||
+		   wumpusPoint.getX() == hunterPoint.getX() + 2) {
+			
+		}
+		return false;
 	}
 
 	Wumpus wumpus;
 	
-	public Map(Player player) {
+	public Map() {
 		initializeMap();
 		initializeWumpus();
 		initializeSlimePits();
@@ -22,11 +34,15 @@ public class Map {
 		initializeHunter();
 	}
 	
-	public boolean checkForWumpus() {
+	/*public boolean checkForWumpus() {
 		Point point = wumpus.getWumpusLocation();
 		return false;
-	}
+	}*/
 	
+	public Player getPlayer() {
+		return player;
+	}
+
 	public void initializeHunter() {
 		Random randomNum = new Random();
 		
@@ -36,13 +52,11 @@ public class Map {
 			int r = randomNum.nextInt(12);
 			int c = randomNum.nextInt(12);
 			if(map[r][c].roomType == RoomType.Empty){
-				this.player = new Player();
+				this.player = new Player(new Point(r, c));
 				map[r][c].roomType = player.roomType;
+				map[r][c].setIsVisited();
 				empty = false;
 			}
-				
-			
-			
 		}
 	}
 	

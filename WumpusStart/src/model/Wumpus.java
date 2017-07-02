@@ -6,13 +6,13 @@ import java.awt.Point;
 
 public class Wumpus {
 
-	Point wumpusLocation;
+	static Point wumpusLocation;
 	
 	Wumpus() {
 		setWumpusLocation();
 	}
 
-	public Point getWumpusLocation() {
+	public static Point getWumpusLocation() {
 		return wumpusLocation;
 	}
 
@@ -21,8 +21,6 @@ public class Wumpus {
 		Random randomNum = new Random ();
 		int rowIndex = randomNum.nextInt(12);
 		int colIndex = randomNum.nextInt(12);
-		this.wumpusLocation = new Point(rowIndex, colIndex);
+		Wumpus.wumpusLocation = new Point(rowIndex, colIndex);
 	}
-	
-	
 }

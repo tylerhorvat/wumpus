@@ -42,7 +42,7 @@ public class Room {
 			return "G";
 		if(roomType == RoomType.Pit)
 			return "P";
-		if(roomType == RoomType.Empty)
+		if(roomType == RoomType.Empty && this.isVisited == false)
 			return "X";
 		return " ";
 	}

@@ -1,5 +1,6 @@
 package controller;
 import java.awt.Point;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 /**
@@ -18,35 +19,77 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Map;
 import model.Player;
+import model.RoomType;
+import model.Wumpus;
 
 public class MainWumpus extends Application {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InvocationTargetException {
     //Application.launch(args);
     
     boolean gameOver = false;
-    Player player = new Player();
-    Map map = new Map(player);
+    Map map = new Map();
+    Player player = map.getPlayer();
     Scanner scanner = new Scanner(System.in);
+    boolean hitWumpus = false;
+    int checkNextMove = 0;
+    boolean wumpusNearby = false;
     
     do {
     	
     	System.out.println(map.toString());
-        System.out.println("Move (n, e, s, w, arrow)?");
+        System.out.print("Move (n, e, s, w, arrow)? ");
         String playerMove = scanner.next();
         
         Move move = new Move(playerMove, player.getPlayerLocation());
         Point moveTo = move.makeMove();
+        System.out.println();
+        
         if(moveTo == null) {
         	Scanner arrowScan = new Scanner(System.in);
 			System.out.print("Shoot (n, e, s, w)? ");
 			String arrowDirection = arrowScan.next();
+			hitWumpus = player.shootArrow(arrowDirection);
+			arrowScan.close();
+			gameOver = true;
         }
-        gameOver = move.checkGameOver();
+        else {
+        	player.setPlayerLocation(moveTo);
+        }
+        
+        if(wumpusNearby) {
+        	System.out.println();
+        	System.out.println("I smell something foul, from 1 or 2 rooms away");
+        	System.out.println();	
+        }
+        	
+        Point wumpus = Wumpus.getWumpusLocation();
+        if(player.getPreviousRoomType() == RoomType.Pit)
+        {
+        	checkNextMove = -1;
+        	gameOver = true;
+        }
+        if((player.getPlayerLocation().getX() == wumpus.getX()) &&
+		    	(player.getPlayerLocation().getY() == wumpus.getY())) {
+		    	checkNextMove = -2;
+		    	gameOver = true;
+		    }
+ 
+        System.out.println();
+        
         
     } while (!gameOver);
     
     System.out.println(map.toString());
+    
+    if(checkNextMove == -1)
+    	System.out.println("You fell in a pit. Game Over");
+    else if(checkNextMove == -1) 
+    	System.out.println("You were eaten by the Wumpus. Game Over");
+    else if(hitWumpus)
+    	System.out.println("Your arrow hit the Wumpus. Good shooting. Game over.");
+    else
+    	System.out.println("Your arrow hit you. Bad shooting. Game over.");
     
     
     scanner.close();
