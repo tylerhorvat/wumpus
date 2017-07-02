@@ -1,3 +1,8 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017
+ */
+
 package model;
 
 import java.awt.Point;
@@ -29,12 +34,12 @@ public class Map {
 		}
 		if((wumpusPoint.getY() == hunterPoint.getY() - 1  ||
 			wumpusPoint.getY() == hunterPoint.getY() - 2) &&
-			wumpusPoint.getX() == hunterPoint.getY())  {
+			wumpusPoint.getX() == hunterPoint.getX())  {
 				return true;
 		}
 		if((wumpusPoint.getY() == hunterPoint.getY() + 1  ||
 			wumpusPoint.getY() == hunterPoint.getY() + 2) &&
-			wumpusPoint.getX() == hunterPoint.getY())  {
+			wumpusPoint.getX() == hunterPoint.getX())  {
 				return true;
 			}
 		return false;
@@ -105,8 +110,8 @@ public class Map {
 	}
 	
 	public void initializeBlood() {
-		int r = (int) wumpus.getWumpusLocation().getX();
-		int c = (int) wumpus.getWumpusLocation().getY();
+		int r = (int) Wumpus.getWumpusLocation().getX();
+		int c = (int) Wumpus.getWumpusLocation().getY();
 		
 		int B1 = checkIndex(r - 1);
 		int B2 = checkIndex(r - 2);
@@ -152,11 +157,28 @@ public class Map {
 		else if(map[r][B8].roomType == RoomType.Empty)
 			map[r][B8].roomType = RoomType.Blood;
 		
+		if(map[B1][B5].roomType == RoomType.Slime)
+			map[B1][B5].roomType = RoomType.Goop;
+		else if(map[B1][B5].roomType == RoomType.Empty)
+			map[B1][B5].roomType = RoomType.Blood;
+		if(map[B3][B5].roomType == RoomType.Empty)
+			map[B3][B5].roomType = RoomType.Blood;
+		else if(map[B3][B5].roomType == RoomType.Slime)
+			map[B3][B5].roomType = RoomType.Goop;
+		if(map[B1][B7].roomType == RoomType.Slime)
+			map[B1][B7].roomType = RoomType.Goop;
+		else if(map[B1][B7].roomType == RoomType.Empty)
+			map[B1][B7].roomType = RoomType.Blood;
+		if(map[B3][B7].roomType == RoomType.Slime)
+			map[B3][B7].roomType = RoomType.Blood;
+		else if(map[B3][B7].roomType == RoomType.Empty)
+			map[B3][B7].roomType = RoomType.Blood;
+		
 	}
 
 	public void initializeWumpus() {
 		wumpus = new Wumpus();
-		map[(int) wumpus.getWumpusLocation().getX()][(int) wumpus.getWumpusLocation().getY()].setRoomType(RoomType.Wumpus);
+		map[(int) Wumpus.getWumpusLocation().getX()][(int) Wumpus.getWumpusLocation().getY()].setRoomType(RoomType.Wumpus);
 		
 	}
 	
