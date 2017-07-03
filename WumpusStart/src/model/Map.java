@@ -18,6 +18,17 @@ public class Map {
 		return map;
 	}
 	
+	public boolean checkForPit() {
+		boolean pitCheck = false;
+		
+		if(player.previousRoomType == RoomType.Slime ||
+		   player.previousRoomType == RoomType.Goop)
+			pitCheck = true;
+		
+		return pitCheck;
+		
+	}
+	
 	public boolean checkForWumpus() {
 		Point wumpusPoint = Wumpus.getWumpusLocation();
 		Point hunterPoint = player.getPlayerLocation();
@@ -182,13 +193,14 @@ public class Map {
 		
 	}
 	
-	public void initializeMap() {
+	public Room[][] initializeMap() {
 		map = new Room [MAX_SIZE][MAX_SIZE];
 		for(int i = 0; i < MAX_SIZE; i++) {
 			for(int j = 0; j < MAX_SIZE; j++) {
 				map[i][j] = new Room();
 			}
 		}
+		return map;
 	}
 	
 	  @Override

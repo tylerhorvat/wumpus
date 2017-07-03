@@ -2,13 +2,29 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Point;
+
 import org.junit.Test;
 
-public class GameTest {
+import model.Map;
+import model.Room;
 
-  @Test
-  public void testMoveFourDirections() {
+public class GameTest {
+	
+	@Test
+	public void checkBloodLocations() {
+		
+	}
+	
+	@Test
+	public void testToString() {
+		Map map = new Map ();
+		map.toString();
+	}
+
+    @Test
+    public void testMoveFourDirections() {
     assertTrue(3 == 4);
-  }
+    }
 
 }
