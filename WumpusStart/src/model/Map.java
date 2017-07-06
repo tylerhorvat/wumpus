@@ -1,20 +1,20 @@
+
 /*
  * Written by: Tyler Horvat
  * CSC 335 Summer 2017
  */
-
 package model;
 
 import java.awt.Point;
-//import java.awt.Point;
 import java.util.Random;
 
 public class Map {
 
 	final static int MAX_SIZE = 12;
-	static Room [][] map;
+	private Room [][] map;
 	Player player;
-	public static Room[][] getMap() {
+	
+	public Room[][] getMap() {
 		return map;
 	}
 	
@@ -30,7 +30,7 @@ public class Map {
 	}
 	
 	public boolean checkForWumpus() {
-		Point wumpusPoint = Wumpus.getWumpusLocation();
+		Point wumpusPoint = wumpus.getWumpusLocation();
 		Point hunterPoint = player.getPlayerLocation();
 		
 		if((wumpusPoint.getX() == hunterPoint.getX() + 1  ||
@@ -84,7 +84,7 @@ public class Map {
 			int r = randomNum.nextInt(12);
 			int c = randomNum.nextInt(12);
 			if(map[r][c].roomType == RoomType.Empty){
-				this.player = new Player(new Point(r, c));
+				this.player = new Player(new Point(r, c), this);
 				map[r][c].roomType = player.roomType;
 				map[r][c].setIsVisited();
 				empty = false;
@@ -121,8 +121,8 @@ public class Map {
 	}
 	
 	public void initializeBlood() {
-		int r = (int) Wumpus.getWumpusLocation().getX();
-		int c = (int) Wumpus.getWumpusLocation().getY();
+		int r = (int) wumpus.getWumpusLocation().getX();
+		int c = (int) wumpus.getWumpusLocation().getY();
 		
 		int B1 = checkIndex(r - 1);
 		int B2 = checkIndex(r - 2);
@@ -189,10 +189,14 @@ public class Map {
 
 	public void initializeWumpus() {
 		wumpus = new Wumpus();
-		map[(int) Wumpus.getWumpusLocation().getX()][(int) Wumpus.getWumpusLocation().getY()].setRoomType(RoomType.Wumpus);
+		map[(int) wumpus.getWumpusLocation().getX()][(int) wumpus.getWumpusLocation().getY()].setRoomType(RoomType.Wumpus);
 		
 	}
 	
+	public Wumpus getWumpus() {
+		return wumpus;
+	}
+
 	public Room[][] initializeMap() {
 		map = new Room [MAX_SIZE][MAX_SIZE];
 		for(int i = 0; i < MAX_SIZE; i++) {
@@ -207,8 +211,9 @@ public class Map {
 	  public String toString() {
 	    String result = "";
 	    for (int r = 0; r < MAX_SIZE; r++) {
-	      for (int c = 0; c < MAX_SIZE; c++)
-	        result += " " + map[r][c] + " ";
+	      for (int c = 0; c < MAX_SIZE; c++) {
+	    	  result += " " + map[r][c] + " ";
+	      }
 	      result += "\n";
 	    }
 	    return result;

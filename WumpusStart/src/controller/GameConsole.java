@@ -1,3 +1,8 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017
+ */
+
 package controller;
 
 import java.awt.Point;
@@ -6,7 +11,6 @@ import java.util.Scanner;
 import model.Map;
 import model.Player;
 import model.RoomType;
-import model.Wumpus;
 
 public class GameConsole {
 
@@ -26,7 +30,7 @@ public class GameConsole {
 		gameOver = false;
 		hitWumpus = false;
 		checkNextMove = 0;
-		wumpus = Wumpus.getWumpusLocation();
+		wumpus = map.getWumpus().getWumpusLocation();
 		scanner = new Scanner(System.in);
 	}
 	
@@ -47,7 +51,7 @@ public class GameConsole {
 				setGameOver(true);
 	        }
 	        else {
-	        	player.setPlayerLocation(moveTo);
+	        	player.setPlayerLocation(moveTo, map.getMap());
 	        }
 	        
 	        if(map.checkForWumpus()) {
@@ -56,7 +60,7 @@ public class GameConsole {
 	        if(map.checkForPit())
 	        	System.out.println("\nI can hear the wind");
 	        	
-	        this.wumpus = Wumpus.getWumpusLocation();
+	        this.wumpus = map.getWumpus().getWumpusLocation();
 	        
 	        if(player.getPreviousRoomType() == RoomType.Pit)
 	        {

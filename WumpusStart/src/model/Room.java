@@ -7,7 +7,7 @@ package model;
 
 public class Room {
 	
-	RoomType roomType;
+	public RoomType roomType;
 	boolean isVisited;
 	
 	Room() {
@@ -28,7 +28,7 @@ public class Room {
 	}
 	
 	public boolean isVisited() {
-		return this.isVisited();
+		return this.isVisited;
 		
 	}
 

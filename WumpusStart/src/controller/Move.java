@@ -1,8 +1,11 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017
+ */
+
 package controller;
 
 import java.awt.Point;
-import java.util.Scanner;
-
 import model.Map;
 
 public class Move {
@@ -19,11 +22,7 @@ public class Move {
 	public Point makeMove() {
 		int r = 0, c = 0;
 	
-		if(this.move.equals("arrow")) {
-			return null;
-		
-		}
-		else if(this.move.equals("n")){
+		if(this.move.equals("n")){
 			r = Map.checkIndex(playerCurrentLocation.x - 1);
 		    c = Map.checkIndex(playerCurrentLocation.y);
 		}
