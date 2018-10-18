@@ -1,6 +1,6 @@
 /*
  * Written by: Tyler Horvat
- * CSC 335 Summer 2017
+ * CSC 335 Summer2017
  */
 
 package controller;
