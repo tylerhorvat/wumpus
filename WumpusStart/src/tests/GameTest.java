@@ -1,5 +1,5 @@
 package tests;
-
+//written by tyler horvat
 import static org.junit.Assert.*;
 
 import java.awt.Point;
